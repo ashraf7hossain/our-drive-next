@@ -4,35 +4,14 @@ import Cookies from 'js-cookie';
 import { provider, signInWithPopup, auth } from "@/firebase.config";
 import { getIdToken, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { handleSignIn, handleSignOut } from "@/utils/auth.utils";
 
 function SignIn() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignIn = async () => {
-    try {
-      console.log(auth);
-      const result: any = await signInWithPopup(auth, provider);
-      const userIdToken = await getIdToken(result.user);
-      localStorage.setItem("token", userIdToken);
-      setUser(result.user);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-      setUser(null);
-      localStorage.removeItem("token");
-      Cookies.remove("token");
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
 
   useEffect(() => {
     if(auth.currentUser) {

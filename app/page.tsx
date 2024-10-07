@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase.config";
-import FileTile from "./dashboard/(components)/FileTile";
+// import FileTile from "./dashboard/(components)/FileTile";
 
 export default function Home() {
   const [search, setSearch] = useState("");
@@ -60,7 +60,7 @@ export default function Home() {
                   // Handle suggestion selection (e.g., navigate to a specific page)
                 }}
               >
-                <FileTile file={suggestion} />
+                {/* <FileTile file={suggestion} /> */}
               </li>
             ))}
           </ul>

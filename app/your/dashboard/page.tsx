@@ -1,4 +1,4 @@
-import FileUpload from "@/app/dashboard/(components)/FileUpload";
+import FileUpload from "./(components)/FileUpload";
 import FileList from "./(components)/FileList";
 
 function Dashboard() {

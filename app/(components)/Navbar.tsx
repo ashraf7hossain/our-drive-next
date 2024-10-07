@@ -22,7 +22,7 @@ const Navbar = () => {
     },
     {
       name: "Your",
-      link: "/dashboard",
+      link: "/your/dashboard",
     },
   ];
 
@@ -62,16 +62,24 @@ const Navbar = () => {
               {option.name}
             </Link>
           ))}
-          <div className="avatar">
-            <div className="w-10 rounded-full">
-              <Image
-                src={user?.photoURL || ""}
-                alt="Avatar"
-                width={200}
-                height={200}
-              ></Image>
+          {isLoggedIn ? (
+            <div className="avatar">
+              <div className="w-10 rounded-full">
+                <Link href="/your/profile">
+                  <Image
+                    src={user?.photoURL || ""}
+                    alt="Avatar"
+                    width={200}
+                    height={200}
+                  ></Image>
+                </Link>
+              </div>
             </div>
-          </div>
+          ) : (
+            <Link href="/auth/signin">
+              Sign in
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Hamburger Icon */}

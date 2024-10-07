@@ -69,26 +69,29 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUploadSuccess }) => {
 
   return (
     <div className="container p-6 mx-auto">
-      <OurModal onClose={hideModal}>
-        <div className="bg-blue-200 px-4 py-2 text-blue rounded inline-block">
-          <label htmlFor="file-upload" className="cursor-pointer">
-            add file
-          </label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            id="file-upload"
-            className="hidden"
-          />
-        </div>
-        <button
-          className="ms-5 bg-blue-200 px-4 py-2 text-blue rounded inline-block"
-          onClick={handleUploadFile}
-        >
-          Upload
-        </button>
-        <div className="progress">{uploading && <p>{progress}%</p>}</div>
-      </OurModal>
+      <button className="bg-blue-200 px-4 py-2 text-blue rounded inline-block" onClick={showModal} type="button">Upload</button>
+      {isModalOpen && (
+        <OurModal onClose={hideModal}>
+          <div className="bg-blue-200 px-4 py-2 text-blue rounded inline-block">
+            <label htmlFor="file-upload" className="cursor-pointer">
+              add file
+            </label>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              id="file-upload"
+              className="hidden"
+            />
+          </div>
+          <button
+            className="ms-5 bg-blue-200 px-4 py-2 text-blue rounded inline-block"
+            onClick={handleUploadFile}
+          >
+            Upload
+          </button>
+          <div className="progress">{uploading && <p>{progress}%</p>}</div>
+        </OurModal>
+      )}
     </div>
   );
 };

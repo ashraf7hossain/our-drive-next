@@ -28,3 +28,10 @@ body {
     rgba(255, 255, 255, 0.1)
   );
 }
+
+.menu-hider {
+  left: 0;
+  top: 100px;
+  border-top-right-radius: 23px;
+  border-bottom-right-radius: 23px;
+}
