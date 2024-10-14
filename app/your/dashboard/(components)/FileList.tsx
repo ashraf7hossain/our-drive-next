@@ -5,30 +5,18 @@ import { db } from "@/firebase.config";
 import { collection, getDocs, query } from "firebase/firestore";
 import FileTile from "./FileTile";
 import { onAuthStateChanged } from "firebase/auth";
+import { useFileContext } from "@/contexts/FileContext";
 
 function FileList() {
-  const [files, setFiles] = useState([]);
+  const {files, fetchFiles} = useFileContext();
   const [loading, setLoading] = useState(true);
-  const fetchUsersFiles = async (userId: string) => {
-    console.log(auth?.currentUser);
-    const fileRefs = await collection(db, `users/${userId}/documents`);
 
-    const querySnapshot = await getDocs(fileRefs);
-    
-    let tempFiles: any = [];
-    
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      tempFiles.push({ id: doc.id, ...doc.data() });
-    });
-    setFiles(tempFiles);
-  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // console.log("User is signed in:", user);
-        fetchUsersFiles(user.uid); // Fetch files for the authenticated user
+        fetchFiles(user.uid); // Fetch files for the authenticated user
       } else {
         console.log("No user is signed in.");
         setLoading(false);

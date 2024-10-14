@@ -8,8 +8,11 @@ import { MdLockOpen, MdLock } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { RiGlobalLine } from "react-icons/ri";
 import { RiDeleteBin6Line } from "react-icons/ri";
-function FileTile({ file }: any) {
+import { FileData } from "@/models/fileData";
+function FileTile({ file }: { file: FileData }) {
   const [showMenu, setShowMenu] = useState(false);
+
+  const handleView = () => {};
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -22,7 +25,7 @@ function FileTile({ file }: any) {
 
     const userId = auth.currentUser.uid;
     updateVisibility(
-      file.id,
+      file.id || "",
       userId,
       file.visibility === "public" ? "private" : "public"
     );
@@ -44,14 +47,14 @@ function FileTile({ file }: any) {
               src={`/assets/icons/${file.fileType}.png`}
               width={30}
               height={30}
-              alt="file icon"
+              alt={file.fileType}
             />
           </div>
           <div>
             {/* File name */}
             <p className="font-bold text-lg">{truncateText(file.name, 20)}</p>
             <p className="text-sm text-gray-500">
-              Uploaded: {file.uploadedAt.toDate().toLocaleString()}
+              Uploaded: {file.uploadedAt.toLocaleString()}
             </p>
           </div>
         </div>
@@ -65,24 +68,25 @@ function FileTile({ file }: any) {
           {/* Dropdown menu */}
           {showMenu && (
             <div className="absolute right-0 mt-2 w-32 bg-white flex flex-col justify-center rounded-md shadow-lg z-10">
-              <button className="block flex  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                <FaEye /> 
-                <p>
-                  View
-                </p>
+              <button
+                onClick={handleView}
+                className="block flex  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                <a href={file.url}>
+                  <FaEye />
+                  <p>View</p>
+                </a>
               </button>
 
               <button className="block flex  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                <RiDeleteBin6Line/>
-                <p>
-                  Delete
-                </p>
+                <RiDeleteBin6Line />
+                <p>Delete</p>
               </button>
               <button
                 onClick={toggleVisibility}
                 className="block flex  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                {file.visibility === "private" ? <RiGlobalLine/> : <MdLock />}
+                {file.visibility === "private" ? <RiGlobalLine /> : <MdLock />}
                 <p>
                   {file.visibility === "private"
                     ? "Make Public"

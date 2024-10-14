@@ -24,7 +24,7 @@ function SignIn() {
         Cookies.set("token", token, { expires: 1, path: '/' });
         setUser(user);
         // navigate to dashboard using next router
-        router.push("/dashboard");
+        router.push("/your/dashboard");
       }
     });
     return () => {
